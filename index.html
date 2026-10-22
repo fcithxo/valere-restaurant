@@ -1,0 +1,722 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f0e8">
+<title>Valére | Restaurant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Italianno&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f7f3ec;--paper:#fffdf9;--sand:#e7dccb;--tan:#c5aa8b;--brown:#684a36;--dark:#30241d;--muted:#83766b;--line:#e8dfd3;--green:#66745a;--red:#9a5549;--shadow:0 14px 38px #4d35200d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--dark);font-family:"DM Sans",Arial,sans-serif;font-size:14px;line-height:1.5}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #c5aa8b;outline-offset:2px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.hidden{display:none!important}
+.serif{font-family:Georgia,"Times New Roman",serif}
+.wrap{max-width:1240px;margin:auto;padding:0 28px}
+.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);background:#f7f3ecef;padding:0 max(28px,calc((100vw - 1240px)/2));position:sticky;top:0;z-index:20;backdrop-filter:blur(14px)}
+.brand{font-family:"Italianno",cursive;font-size:48px;color:var(--brown);line-height:1;text-decoration:none;white-space:nowrap}
+.nav{display:flex;align-items:center;gap:24px}
+.nav a{color:var(--dark);text-decoration:none;font-size:13px}
+.nav a:hover{color:var(--brown)}
+.actions{display:flex;gap:9px;align-items:center}
+.btn{border:1px solid var(--brown);border-radius:7px;padding:10px 16px;font-weight:600;background:var(--brown);color:#fffdf9;transition:.2s}
+.btn:hover{background:#503725}
+.btn.secondary{background:transparent;color:var(--brown)}
+.btn.secondary:hover{background:#eee5d9}
+.btn.small{padding:8px 12px;font-size:12px}
+.iconbtn{border:1px solid var(--line);background:var(--paper);border-radius:7px;padding:9px 12px;color:var(--brown)}
+.hero{display:grid;grid-template-columns:1.12fr .88fr;gap:36px;align-items:center;padding:55px 0 50px}
+.eyebrow{text-transform:uppercase;letter-spacing:2.5px;font-size:10px;font-weight:700;color:var(--green)}
+h1,h2,h3,p{margin-top:0}
+h1{font:clamp(45px,6vw,76px)/.98 Georgia,serif;font-weight:400;letter-spacing:-2.5px;margin:18px 0}
+.hero p{color:var(--muted);max-width:475px;font-size:15px;line-height:1.9}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.hero-art{height:330px;border-radius:14px;background:linear-gradient(135deg,#d9c8b2,#ad8a6d);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.plate{width:250px;height:250px;border-radius:50%;background:#f7f0e4;border:9px solid #e7ddcf;box-shadow:0 12px 25px #51341f36;display:flex;align-items:center;justify-content:center;font-size:94px;transform:rotate(-9deg)}
+.hero-art:before,.hero-art:after{content:"";position:absolute;border:1px solid #fff8;width:310px;height:310px;border-radius:50%;opacity:.55}
+.hero-art:after{width:360px;height:360px}
+.art-label{position:absolute;right:20px;bottom:18px;color:#fff9ef;font-size:10px;letter-spacing:2px;text-transform:uppercase}
+.notice{border:1px solid #d9c8b2;background:#f1e7d9;padding:12px 15px;border-radius:8px;color:#654b37;font-size:12px;margin:0 0 24px}
+.section{padding:32px 0 55px;scroll-margin-top:90px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:23px}
+.section-head h2{font:400 35px/1.1 Georgia,serif;margin:8px 0 0}
+.section-head p{color:var(--muted);margin:0;font-size:12px}
+.category-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:30px;padding:9px 14px;font-size:12px}
+.chip.active,.chip:hover{background:var(--brown);color:white;border-color:var(--brown)}
+.menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.menu-card{background:var(--paper);border:1px solid var(--line);border-radius:11px;overflow:hidden;display:flex;flex-direction:column;min-width:0;box-shadow:var(--shadow)}
+.food-art{height:145px;background:linear-gradient(145deg,#e8ddcd,#d0b89d);display:flex;align-items:center;justify-content:center;font-size:54px;position:relative}
+.food-art:after{content:"";position:absolute;width:112px;height:112px;border:1px solid #fff9;border-radius:50%}
+.food-body{padding:17px;display:flex;flex-direction:column;flex:1}
+.food-title{font:400 20px/1.25 Georgia,serif;margin:0 0 8px}
+.ingredients{color:var(--muted);font-size:12px;min-height:36px;margin:0 0 10px}
+.nutrition{font-size:10px;color:#75695f;background:#f4eee5;border-radius:5px;padding:6px 8px;align-self:flex-start;margin-bottom:14px}
+.food-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto}
+.price{font-weight:700;color:var(--brown);font-size:16px}
+.add-btn{border:0;background:var(--brown);color:white;border-radius:6px;padding:9px 11px;font-size:11px;font-weight:700}
+.add-btn:hover{background:#503725}
+.shop-layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:22px;align-items:start}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:21px;box-shadow:var(--shadow)}
+.panel h3{font:400 24px Georgia,serif;margin-bottom:5px}
+.subtle{color:var(--muted);font-size:12px}
+.cart-list{margin:18px 0}
+.empty{border:1px dashed #d8cbbb;border-radius:8px;padding:25px;text-align:center;color:var(--muted);font-size:12px}
+.cart-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.cart-item-name{font-weight:600;font-size:13px}
+.cart-item-price{font-size:12px;color:var(--muted)}
+.qty{display:flex;align-items:center;gap:8px;margin-top:8px}
+.qty button{border:1px solid var(--line);background:var(--cream);border-radius:5px;width:25px;height:25px;color:var(--brown)}
+.remove{border:0;background:none;color:var(--red);font-size:11px;padding:0 0 0 5px}
+.field{display:flex;flex-direction:column;gap:6px;margin:13px 0}
+.field label{font-size:11px;font-weight:700;color:#6d5b4d}
+.field input,.field textarea,.field select{width:100%;border:1px solid #ded3c5;background:#fffefa;border-radius:6px;padding:11px;color:var(--dark)}
+.field textarea{resize:vertical;min-height:76px}
+.summary-line{display:flex;justify-content:space-between;gap:10px;padding:7px 0;color:var(--muted);font-size:12px}
+.summary-line.total{border-top:1px solid var(--line);padding-top:14px;margin-top:5px;color:var(--dark);font-size:16px;font-weight:700}
+.wide{width:100%;margin-top:12px}
+.muted-small{font-size:10px;color:var(--muted);margin-top:9px}
+.order-card{padding:15px 0;border-bottom:1px solid var(--line)}
+.order-top{display:flex;justify-content:space-between;gap:10px}
+.status{display:inline-block;border-radius:30px;padding:4px 9px;background:#e7eadf;color:#4d6342;font-size:10px;font-weight:700}
+.status.pending{background:#f2e6d3;color:#876039}
+.status.cancelled{background:#f3e0dc;color:#8c4a40}
+.order-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.order-actions button{font-size:11px}
+.reviews-grid{display:grid;grid-template-columns:300px minmax(0,1fr);gap:20px}
+.rating-big{font:400 48px Georgia,serif;margin:12px 0 0}
+.stars{color:#b18447;letter-spacing:2px;font-size:19px}
+.review{border-bottom:1px solid var(--line);padding:15px 0}
+.review:last-child{border-bottom:0}
+.review-meta{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.review-name{font-weight:700}
+.review p{color:var(--muted);font-size:13px;margin:8px 0}
+.recommend{font-size:10px;color:var(--green);font-weight:700}
+.footer{padding:25px 0 35px;border-top:1px solid var(--line);color:var(--muted);font-size:11px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.modal-backdrop{position:fixed;inset:0;background:#2118109c;z-index:50;display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto}
+.modal{width:min(460px,100%);background:var(--paper);border-radius:12px;padding:27px;box-shadow:0 25px 70px #0003;position:relative;margin:auto}
+.modal h2{font:400 30px Georgia,serif;margin-bottom:7px}
+.modal-close{position:absolute;right:15px;top:15px;border:0;background:transparent;font-size:22px;color:var(--muted)}
+.modal-tabs{display:flex;gap:7px;margin:18px 0}
+.modal-tabs button{flex:1}
+.modal-note{font-size:11px;color:var(--muted);line-height:1.6}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:80;background:#30241d;color:#fff;padding:12px 18px;border-radius:7px;box-shadow:var(--shadow);font-size:12px;max-width:90vw}
+.receipt{font-family:Arial,sans-serif;color:#222;font-size:12px}
+.receipt h2{text-align:center;font-size:22px}
+.receipt .receipt-center{text-align:center}
+.receipt hr{border:0;border-top:1px dashed #aaa;margin:14px 0}
+.receipt table{width:100%;border-collapse:collapse}
+.receipt td{padding:5px 0}
+.receipt td:last-child{text-align:right}
+.receipt .r-total{font-weight:bold;border-top:1px solid #888}
+.account-label{font-size:11px;color:var(--muted);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:900px){
+.topbar{padding:0 20px}.nav{gap:13px}.nav a{font-size:12px}.hero{gap:22px}.hero-art{height:280px}.plate{width:210px;height:210px;font-size:78px}.menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.shop-layout{grid-template-columns:minmax(0,1fr) 300px}.reviews-grid{grid-template-columns:250px minmax(0,1fr)}
+}
+@media(max-width:680px){
+.wrap{padding:0 16px}.topbar{height:auto;min-height:67px;padding:12px 16px;flex-wrap:wrap;gap:10px}.brand{font-size:42px}.nav{order:3;width:100%;justify-content:space-between;border-top:1px solid var(--line);padding-top:9px}.nav a{font-size:11px}.actions{margin-left:auto}.account-label{display:none}.hero{grid-template-columns:1fr;padding:35px 0 30px;gap:24px}.hero-art{height:220px}.plate{width:170px;height:170px;font-size:65px}.hero p{font-size:14px}.section{padding:25px 0 38px}.section-head{align-items:start;flex-direction:column;gap:8px}.section-head h2{font-size:30px}.menu-grid{grid-template-columns:1fr 1fr;gap:10px}.food-art{height:110px;font-size:42px}.food-body{padding:12px}.food-title{font-size:17px}.ingredients{font-size:11px;min-height:50px}.nutrition{font-size:9px}.food-foot{align-items:flex-start;flex-direction:column}.add-btn{width:100%}.shop-layout{grid-template-columns:1fr}.reviews-grid{grid-template-columns:1fr}.panel{padding:17px}.footer{padding-bottom:25px}
+}
+@media(max-width:390px){
+.menu-grid{grid-template-columns:1fr}.food-art{height:130px}.food-foot{flex-direction:row;align-items:center}.add-btn{width:auto}.hero-actions .btn{flex:1}.actions .btn{padding:8px 10px;font-size:11px}
+}
+@media print{
+body *{visibility:hidden!important}.receipt-print,.receipt-print *{visibility:visible!important}.receipt-print{position:absolute;left:0;top:0;width:100%;padding:20px;background:white;color:black}.no-print{display:none!important}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a href="#home" class="brand" aria-label="Valére home">Valére</a>
+  <nav class="nav" aria-label="Main navigation">
+    <a href="#menu">Menu</a><a href="#ordering">Order</a><a href="#history">My orders</a><a href="#reviews">Reviews</a>
+  </nav>
+  <div class="actions">
+    <span class="account-label" id="accountLabel">Guest mode</span>
+    <button class="btn secondary small" id="accountButton" onclick="openAuth()">Sign in</button>
+    <button class="btn small" id="signupButton" onclick="openAuth('signup')">Sign Up</button>
+  </div>
+</header>
+<main class="wrap">
+  <section class="hero" id="home">
+    <div>
+      <div class="eyebrow">A little taste of Italy</div>
+      <h1>Made slowly.<br>Enjoyed fully.</h1>
+      <p>Seasonal ingredients, familiar Italian comforts, and a table always worth gathering around. Welcome to Valére.</p>
+      <div class="hero-actions"><button class="btn" onclick="startOrdering()">Explore the menu <span aria-hidden="true">↗</span></button><button class="btn secondary" onclick="openAuth('signup')">Create your account</button></div>
+    </div>
+    <div class="hero-art" aria-label="Illustration of a plate of Italian food"><div class="plate">🍝</div><span class="art-label">Cucina · Con cuore</span></div>
+  </section>
+  <div class="notice"><strong>Menu information:</strong> Ingredient descriptions are illustrative and should be checked by the restaurant. Calorie figures are marked “awaiting confirmation” because verified recipe-specific nutrition data was not supplied. Confirm ingredients, allergens, and nutrition before publishing.</div>
+  <section class="section" id="menu">
+    <div class="section-head"><div><div class="eyebrow">From our kitchen</div><h2>The menu</h2></div><p>Thoughtfully prepared, simply served.</p></div>
+    <div class="category-row" id="categoryRow">
+      <button class="chip active" data-category="All">All</button><button class="chip" data-category="APPETIZERS & PASTA">Appetizers & Pasta</button><button class="chip" data-category="PIZZA">Pizza</button><button class="chip" data-category="DESSERTS & DRINKS">Desserts & Drinks</button>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </section>
+  <section class="section" id="ordering">
+    <div class="section-head"><div><div class="eyebrow">Your table, your way</div><h2>Your order</h2></div><p>Add a note for our team, then check out when you're ready.</p></div>
+    <div class="shop-layout">
+      <div class="panel"><h3>Order details</h3><div class="subtle">Review your selections and special requests.</div><div class="cart-list" id="cartList"></div>
+        <div class="field"><label for="orderNotes">Special notes or requests</label><textarea id="orderNotes" placeholder="Allergies, preferences, or other requests…"></textarea></div>
+        <div class="field"><label for="customerName">Name for the order</label><input id="customerName" placeholder="Your name"></div>
+      </div>
+      <aside class="panel"><h3>Order summary</h3><div class="subtle">Prices in Philippine pesos (PHP).</div>
+        <div style="margin-top:18px" class="summary-line"><span>Subtotal</span><strong id="subtotal">₱0.00</strong></div>
+        <div class="summary-line"><span>VAT (12%)</span><strong id="vat">₱0.00</strong></div>
+        <div class="summary-line total"><span>Total</span><strong id="total">₱0.00</strong></div>
+        <div class="field"><label for="paymentMethod">Payment method</label><select id="paymentMethod"><option value="Cash">Cash</option><option value="Debit card">Debit card</option><option value="Credit card">Credit card</option><option value="Bank transfer">Bank transfer</option></select></div>
+        <div class="field hidden" id="cashField"><label for="cashReceived">Cash received (₱)</label><input id="cashReceived" type="number" min="0" step="0.01" placeholder="Enter amount received"></div>
+        <div class="summary-line hidden" id="changeLine"><span>Change</span><strong id="changeAmount">₱0.00</strong></div>
+        <button class="btn wide" id="checkoutButton" onclick="checkout()">Sign in to place order</button>
+        <p class="muted-small">A 12% VAT calculation is shown for transparency. Confirm tax treatment with your accountant before using this for actual sales. Card and bank transfer selections are recorded as payment methods only; this demo does not process payments.</p>
+      </aside>
+    </div>
+  </section>
+  <section class="section" id="history">
+    <div class="section-head"><div><div class="eyebrow">Your table, remembered</div><h2>Order history</h2></div><p>Track recent orders and open their invoices or receipts.</p></div>
+    <div class="panel"><div id="ordersList"><div class="empty">Sign in to view your order history.</div></div></div>
+  </section>
+  <section class="section" id="reviews">
+    <div class="section-head"><div><div class="eyebrow">Notes from our guests</div><h2>Reviews & feedback</h2></div><p>Your experience helps us make every visit better.</p></div>
+    <div class="reviews-grid">
+      <div class="panel"><h3>Leave a review</h3><div class="subtle">Tell us how we did.</div>
+        <form id="reviewForm" onsubmit="submitReview(event)">
+          <div class="field"><label for="reviewName">Name</label><input id="reviewName" placeholder="Your name" required maxlength="60"></div>
+          <div class="field"><label>Star rating</label><div id="starPicker" class="stars" role="radiogroup" aria-label="Star rating"><button type="button" data-star="1" aria-label="1 star">☆</button><button type="button" data-star="2" aria-label="2 stars">☆</button><button type="button" data-star="3" aria-label="3 stars">☆</button><button type="button" data-star="4" aria-label="4 stars">☆</button><button type="button" data-star="5" aria-label="5 stars">☆</button></div></div>
+          <div class="field"><label for="reviewComment">Your comment</label><textarea id="reviewComment" placeholder="What did you enjoy or what could be better?" required maxlength="700"></textarea></div>
+          <div class="field"><label for="recommend">Would you recommend Valére?</label><select id="recommend"><option value="Yes">Yes, I would</option><option value="No">Not yet</option></select></div>
+          <button class="btn wide" type="submit">Submit review</button>
+        </form>
+      </div>
+      <div class="panel"><div class="section-head" style="margin-bottom:8px"><div><h3>Guest voices</h3><div class="subtle" id="reviewCount">No reviews yet</div></div></div>
+        <div class="category-row"><button class="chip active" data-review-filter="all">All reviews</button><button class="chip" data-review-filter="good">Good reviews (4–5 ★)</button><button class="chip" data-review-filter="bad">Bad reviews (1–3 ★)</button></div>
+        <div id="reviewsList"></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="wrap footer"><span>© <span id="year"></span> Valére Restaurant</span><span>Made with care · Italian-inspired dining</span><span>PHP pricing · VAT shown separately</span></footer>
+
+<div class="modal-backdrop hidden" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="modal"><button class="modal-close" onclick="closeAuth()" aria-label="Close">×</button><div class="eyebrow">Welcome to Valére</div><h2 id="authTitle">Create your account</h2><p class="subtle">Use your email to save orders and see your order history.</p>
+    <div class="modal-tabs"><button class="btn" id="tabSignup" onclick="setAuthMode('signup')">Sign Up</button><button class="btn secondary" id="tabSignin" onclick="setAuthMode('signin')">Sign in</button></div>
+    <form id="authForm" onsubmit="submitAuth(event)"><div class="field"><label for="authName">Your name</label><input id="authName" autocomplete="name" required maxlength="80" placeholder="Full name"></div><div class="field"><label for="authEmail">Email address</label><input id="authEmail" type="email" autocomplete="email" required maxlength="160" placeholder="you@example.com"></div><div class="field"><label for="authPassword">Password</label><input id="authPassword" type="password" autocomplete="new-password" minlength="6" required placeholder="At least 6 characters"></div><button class="btn wide" id="authSubmit" type="submit">Create account</button></form>
+    <p class="modal-note">Demo account access is stored only in this browser. Do not use a real or reused password. A production site needs secure server-side authentication, password hashing, and account recovery.</p>
+  </div>
+</div>
+<div class="modal-backdrop hidden" id="documentModal" role="dialog" aria-modal="true" aria-labelledby="documentTitle"><div class="modal"><button class="modal-close no-print" onclick="closeDocument()" aria-label="Close">×</button><div id="documentContent"></div><div class="actions no-print" style="margin-top:18px"><button class="btn" onclick="printDocument()">Print / Save PDF</button><button class="btn secondary" onclick="closeDocument()">Close</button></div></div></div>
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script>
+"use strict";
+
+const MENU = [
+ {id:"pea-pesto",name:"Sweet Pea Pesto Crostini with Sauce",category:"APPETIZERS & PASTA",price:480,ingredients:"Sweet peas, basil pesto, toasted crostini, olive oil, sauce.",calories:null,emoji:"🥖"},
+ {id:"mozzarella-tomato",name:"Marinated Mozzarella & Tomato Appetizers",category:"APPETIZERS & PASTA",price:520,ingredients:"Mozzarella, ripe tomatoes, olive oil, herbs, balsamic dressing.",calories:null,emoji:"🍅"},
+ {id:"spaghetti",name:"Spaghetti aglio, olio e peperoncino",category:"APPETIZERS & PASTA",price:680,ingredients:"Spaghetti, garlic, olive oil, peperoncino, parsley.",calories:null,emoji:"🍝"},
+ {id:"quattro-formagi",name:"Pizza Ai Quattro Formagi",category:"PIZZA",price:850,ingredients:"Pizza dough, mozzarella, gorgonzola, parmesan, fontina.",calories:null,emoji:"🍕"},
+ {id:"funghi-salsicce",name:"Pizza Ai Funghi e Salsicce",category:"PIZZA",price:920,ingredients:"Pizza dough, mushrooms, Italian sausage, tomato, cheese.",calories:null,emoji:"🍕"},
+ {id:"capricciosa",name:"Pizza Capricciosa",category:"PIZZA",price:950,ingredients:"Pizza dough, tomato, mozzarella, ham, mushrooms, artichokes, olives.",calories:null,emoji:"🍕"},
+ {id:"pomodoro-rughetta",name:"Pomodoro Pachina and Rughetta",category:"PIZZA",price:890,ingredients:"Tomatoes, rocket (arugula), pizza base, olive oil, cheese.",calories:null,emoji:"🍅"},
+ {id:"panna-cotta",name:"Dulce De Leche Panna Cotta",category:"DESSERTS & DRINKS",price:460,ingredients:"Cream, milk, gelatin, dulce de leche, sugar.",calories:null,emoji:"🍮"},
+ {id:"gelato",name:"Chocolate-Hazelnut Gelato",category:"DESSERTS & DRINKS",price:440,ingredients:"Milk, cream, cocoa, hazelnut paste, sugar.",calories:null,emoji:"🍨"},
+ {id:"cappuccino",name:"Cappuccino",category:"DESSERTS & DRINKS",price:400,ingredients:"Espresso, steamed milk, milk foam.",calories:null,emoji:"☕"},
+ {id:"ice-tea",name:"Ice tea",category:"DESSERTS & DRINKS",price:400,ingredients:"Brewed tea, water, ice; sweetener if requested.",calories:null,emoji:"🧋"}
+];
+
+const money = n => new Intl.NumberFormat("en-PH",{style:"currency",currency:"PHP"}).format(Number(n)||0);
+
+const getStore = (key, fallback) => {
+ try {
+  const v=localStorage.getItem(key);
+  return v===null?fallback:JSON.parse(v);
+ } catch(e) {
+  return fallback;
+ }
+};
+
+const setStore = (key,value) => {
+ try {
+  localStorage.setItem(key,JSON.stringify(value));
+ } catch(e) {
+  toast("Could not save data in this browser.");
+ }
+};
+
+let currentUser = getStore("valere_current_user",null);
+let cart = {};
+let authMode = "signup";
+let selectedStars = 5;
+let reviewFilter = "all";
+let currentDocument = null;
+
+function toast(message){
+ const el=document.getElementById("toast");
+ el.textContent=message;
+ el.classList.remove("hidden");
+ clearTimeout(toast.timer);
+ toast.timer=setTimeout(()=>el.classList.add("hidden"),3000);
+}
+
+function safe(text){
+ return String(text??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function renderMenu(category="All"){
+ const grid=document.getElementById("menuGrid");
+ grid.innerHTML=MENU.filter(x=>category==="All"||x.category===category).map(item=>`
+  <article class="menu-card">
+   <div class="food-art" aria-hidden="true">${item.emoji}</div>
+   <div class="food-body">
+    <h3 class="food-title">${safe(item.name)}</h3>
+    <p class="ingredients">${safe(item.ingredients)}</p>
+    <div class="nutrition">Calories: awaiting confirmation</div>
+    <div class="food-foot">
+     <span class="price">${money(item.price)}</span>
+     <button class="add-btn" onclick="addToCart('${item.id}')">+ Add to Cart</button>
+    </div>
+   </div>
+  </article>`).join("");
+}
+
+function addToCart(id){
+ const item=MENU.find(x=>x.id===id);
+ if(!item)return;
+ cart[id]=(cart[id]||0)+1;
+ renderCart();
+ toast("Added to your order.");
+}
+
+function changeQty(id,delta){
+ cart[id]=(cart[id]||0)+delta;
+ if(cart[id]<=0)delete cart[id];
+ renderCart();
+}
+
+function clearCart(){
+ cart={};
+ renderCart();
+}
+
+function cartItems(){
+ return Object.entries(cart).map(([id,qty])=>({item:MENU.find(x=>x.id===id),qty})).filter(x=>x.item&&x.qty>0);
+}
+
+function calc(){
+ const subtotal=cartItems().reduce((s,x)=>s+x.item.price*x.qty,0);
+ const vat=Math.round(subtotal*.12*100)/100;
+ return {subtotal,vat,total:subtotal+vat};
+}
+
+function renderCart(){
+ const list=document.getElementById("cartList"),items=cartItems();
+ list.innerHTML=items.length?items.map(({item,qty})=>`
+  <div class="cart-item">
+   <div>
+    <div class="cart-item-name">${safe(item.name)}</div>
+    <div class="cart-item-price">${money(item.price)} each · ${money(item.price*qty)}</div>
+    <div class="qty">
+     <button onclick="changeQty('${item.id}',-1)" aria-label="Decrease quantity">−</button>
+     <strong>${qty}</strong>
+     <button onclick="changeQty('${item.id}',1)" aria-label="Increase quantity">+</button>
+     <button class="remove" onclick="removeItem('${item.id}')">Remove</button>
+    </div>
+   </div>
+  </div>`).join(""):'<div class="empty">Your cart is empty. Add something delicious from the menu.</div>';
+
+ const c=calc();
+ document.getElementById("subtotal").textContent=money(c.subtotal);
+ document.getElementById("vat").textContent=money(c.vat);
+ document.getElementById("total").textContent=money(c.total);
+ updateCashChange();
+ document.getElementById("checkoutButton").textContent=currentUser?"Place order":"Sign in to place order";
+}
+
+function removeItem(id){
+ delete cart[id];
+ renderCart();
+}
+
+function startOrdering(){
+ document.getElementById("menu").scrollIntoView({behavior:"smooth"});
+}
+
+function openAuth(mode="signin"){
+ setAuthMode(mode);
+ document.getElementById("authModal").classList.remove("hidden");
+}
+
+function closeAuth(){
+ document.getElementById("authModal").classList.add("hidden");
+}
+
+function setAuthMode(mode){
+ authMode=mode;
+ const signup=mode==="signup";
+ document.getElementById("authTitle").textContent=signup?"Create your account":"Welcome back";
+ document.getElementById("authName").required=signup;
+ document.getElementById("authName").parentElement.classList.toggle("hidden",!signup);
+ document.getElementById("authPassword").autocomplete=signup?"new-password":"current-password";
+ document.getElementById("authSubmit").textContent=signup?"Create account":"Sign in";
+ document.getElementById("tabSignup").className=signup?"btn":"btn secondary";
+ document.getElementById("tabSignin").className=signup?"btn secondary":"btn";
+}
+
+function submitAuth(e){
+ e.preventDefault();
+
+ const name=document.getElementById("authName").value.trim();
+ const email=document.getElementById("authEmail").value.trim().toLowerCase();
+ const password=document.getElementById("authPassword").value;
+
+ if(!email||password.length<6){
+  toast("Enter a valid email and password of at least 6 characters.");
+  return;
+ }
+
+ const users=getStore("valere_demo_users",{});
+
+ if(authMode==="signup"){
+  if(!name){
+   toast("Please enter your name.");
+   return;
+  }
+  if(users[email]){
+   toast("An account with that email already exists. Please sign in.");
+   return;
+  }
+  users[email]={name,email,password};
+  setStore("valere_demo_users",users);
+  currentUser={name,email};
+ } else {
+  if(!users[email]||users[email].password!==password){
+   toast("Email or password is incorrect for this demo account.");
+   return;
+  }
+  currentUser={name:users[email].name,email};
+ }
+
+ setStore("valere_current_user",currentUser);
+ closeAuth();
+ updateAccount();
+ renderOrders();
+ renderCart();
+ document.getElementById("customerName").value=currentUser.name;
+ toast(authMode==="signup"?"Account created. Welcome to Valére!":"You're signed in.");
+}
+
+function signOut(){
+ currentUser=null;
+ setStore("valere_current_user",null);
+ updateAccount();
+ renderOrders();
+ renderCart();
+ toast("You have signed out.");
+}
+
+function updateAccount(){
+ const label=document.getElementById("accountLabel");
+ const btn=document.getElementById("accountButton");
+ const signup=document.getElementById("signupButton");
+
+ if(currentUser){
+  label.textContent=currentUser.email;
+  btn.textContent="Sign out";
+  btn.onclick=signOut;
+  signup.classList.add("hidden");
+ } else {
+  label.textContent="Guest mode";
+  btn.textContent="Sign in";
+  btn.onclick=()=>openAuth("signin");
+  signup.classList.remove("hidden");
+ }
+}
+
+function updateCashChange(){
+ const isCash=document.getElementById("paymentMethod").value==="Cash";
+ const field=document.getElementById("cashField");
+ const line=document.getElementById("changeLine");
+ field.classList.toggle("hidden",!isCash);
+ line.classList.toggle("hidden",!isCash);
+
+ const received=Number(document.getElementById("cashReceived").value)||0;
+ document.getElementById("changeAmount").textContent=money(Math.max(0,received-calc().total));
+}
+
+function checkout(){
+ if(!currentUser){
+  openAuth("signup");
+  toast("Create an account or sign in before placing an order.");
+  return;
+ }
+
+ const items=cartItems();
+ if(!items.length){
+  toast("Your cart is empty.");
+  return;
+ }
+
+ const totals=calc();
+ const method=document.getElementById("paymentMethod").value;
+ const received=Number(document.getElementById("cashReceived").value)||0;
+
+ if(method==="Cash"&&received<totals.total){
+  toast("Cash received must cover the total.");
+  return;
+ }
+
+ const orders=getStore("valere_orders",[]);
+ const order={
+  id:"VL-"+Date.now().toString().slice(-8),
+  email:currentUser.email,
+  name:(document.getElementById("customerName").value.trim()||currentUser.name),
+  createdAt:new Date().toISOString(),
+  items:items.map(x=>({id:x.item.id,name:x.item.name,price:x.item.price,qty:x.qty})),
+  notes:document.getElementById("orderNotes").value.trim(),
+  subtotal:totals.subtotal,
+  vat:totals.vat,
+  total:totals.total,
+  paymentMethod:method,
+  cashReceived:method==="Cash"?received:null,
+  change:method==="Cash"?Math.round((received-totals.total)*100)/100:null,
+  status:"Received"
+ };
+
+ orders.unshift(order);
+ setStore("valere_orders",orders);
+ clearCart();
+ document.getElementById("orderNotes").value="";
+ document.getElementById("cashReceived").value="";
+ renderOrders();
+ openDocument(order,"receipt");
+ toast("Order placed. Your receipt is ready.");
+ document.getElementById("history").scrollIntoView({behavior:"smooth"});
+}
+
+function userOrders(){
+ return getStore("valere_orders",[]).filter(o=>currentUser&&o.email===currentUser.email);
+}
+
+function renderOrders(){
+ const el=document.getElementById("ordersList");
+
+ if(!currentUser){
+  el.innerHTML='<div class="empty">Sign in to view your order history and track order status.</div>';
+  return;
+ }
+
+ const orders=userOrders();
+
+ if(!orders.length){
+  el.innerHTML='<div class="empty">No orders yet. Your recent orders will appear here.</div>';
+  return;
+ }
+
+ el.innerHTML=orders.map(o=>`
+  <div class="order-card">
+   <div class="order-top">
+    <div>
+     <strong>${safe(o.id)}</strong>
+     <div class="subtle">${new Date(o.createdAt).toLocaleString()}</div>
+    </div>
+    <span class="status ${o.status==="Cancelled"?"cancelled":o.status==="Received"?"pending":""}">${safe(o.status)}</span>
+   </div>
+   <div class="subtle" style="margin-top:9px">${o.items.map(i=>`${i.qty} × ${safe(i.name)}`).join(" · ")}</div>
+   <div class="order-top" style="margin-top:9px">
+    <span class="subtle">${safe(o.paymentMethod)}</span>
+    <strong>${money(o.total)}</strong>
+   </div>
+   ${o.notes?`<div class="subtle" style="margin-top:5px">Note: ${safe(o.notes)}</div>`:""}
+   <div class="order-actions">
+    <button class="btn secondary small" onclick="viewDocument('${o.id}','invoice')">View invoice</button>
+    <button class="btn secondary small" onclick="viewDocument('${o.id}','receipt')">View receipt</button>
+    <button class="btn secondary small" onclick="reorder('${o.id}')">Order again</button>
+   </div>
+  </div>`).join("");
+}
+
+function reorder(id){
+ const o=userOrders().find(x=>x.id===id);
+ if(!o)return;
+
+ o.items.forEach(i=>{
+  if(MENU.some(m=>m.id===i.id))cart[i.id]=(cart[i.id]||0)+i.qty;
+ });
+
+ renderCart();
+ document.getElementById("ordering").scrollIntoView({behavior:"smooth"});
+ toast("Items added to your cart.");
+}
+
+function openDocument(order,type){
+ currentDocument={order,type};
+ renderDocument();
+}
+
+function viewDocument(id,type){
+ const o=userOrders().find(x=>x.id===id);
+ if(o)openDocument(o,type);
+}
+
+function closeDocument(){
+ document.getElementById("documentModal").classList.add("hidden");
+}
+
+function renderDocument(){
+ const {order:o,type}=currentDocument;
+ const title=type==="invoice"?"Invoice":"Order receipt";
+
+ document.getElementById("documentContent").innerHTML=`
+  <div class="receipt receipt-print" id="printableReceipt">
+   <h2>Valére</h2>
+   <div class="receipt-center">Italian-inspired dining<br>${title} · ${safe(o.id)}</div>
+   <hr>
+   <div>
+    <strong>Order:</strong> ${safe(o.id)}<br>
+    <strong>Date:</strong> ${new Date(o.createdAt).toLocaleString()}<br>
+    <strong>Customer:</strong> ${safe(o.name)}<br>
+    <strong>Email:</strong> ${safe(o.email)}<br>
+    <strong>Payment:</strong> ${safe(o.paymentMethod)}<br>
+    <strong>Status:</strong> ${safe(o.status)}
+   </div>
+   <hr>
+   <table>
+    <tbody>
+     ${o.items.map(i=>`<tr><td>${safe(i.name)}<br><span style="color:#777">${i.qty} × ${money(i.price)}</span></td><td>${money(i.price*i.qty)}</td></tr>`).join("")}
+     <tr><td>Subtotal</td><td>${money(o.subtotal)}</td></tr>
+     <tr><td>VAT (12%)</td><td>${money(o.vat)}</td></tr>
+     <tr class="r-total"><td>Total</td><td>${money(o.total)}</td></tr>
+     ${o.paymentMethod==="Cash"?`<tr><td>Cash received</td><td>${money(o.cashReceived)}</td></tr><tr><td>Change</td><td>${money(o.change)}</td></tr>`:""}
+    </tbody>
+   </table>
+   ${o.notes?`<hr><strong>Special notes:</strong><br>${safe(o.notes)}`:""}
+   <hr>
+   <div class="receipt-center">Thank you for choosing Valére.<br><small>Please keep this ${type} for your records.</small></div>
+  </div>`;
+
+ document.getElementById("documentModal").classList.remove("hidden");
+}
+
+function printDocument(){
+ window.print();
+}
+
+function submitReview(e){
+ e.preventDefault();
+
+ const name=document.getElementById("reviewName").value.trim();
+ const comment=document.getElementById("reviewComment").value.trim();
+
+ if(!selectedStars||!name||!comment){
+  toast("Please add a rating, name, and comment.");
+  return;
+ }
+
+ const reviews=getStore("valere_reviews",[]);
+ reviews.unshift({
+  id:"RV-"+Date.now(),
+  name,
+  comment,
+  stars:selectedStars,
+  recommend:document.getElementById("recommend").value,
+  createdAt:new Date().toISOString()
+ });
+
+ setStore("valere_reviews",reviews);
+ document.getElementById("reviewForm").reset();
+ selectedStars=5;
+ paintStars();
+ renderReviews();
+ toast("Thank you for sharing your feedback.");
+}
+
+function paintStars(){
+ document.querySelectorAll("[data-star]").forEach(b=>{
+  const n=Number(b.dataset.star);
+  b.textContent=n<=selectedStars?"★":"☆";
+  b.style.color=n<=selectedStars?"#b18447":"#9b8d80";
+ });
+}
+
+function renderReviews(){
+ const all=getStore("valere_reviews",[]);
+ const filtered=all.filter(r=>reviewFilter==="all"||(reviewFilter==="good"?r.stars>=4:r.stars<=3));
+
+ document.getElementById("reviewCount").textContent=all.length
+  ?`${all.length} review${all.length===1?"":"s"} · ${(all.reduce((s,r)=>s+r.stars,0)/all.length).toFixed(1)} average`
+  :"No reviews yet";
+
+ document.getElementById("reviewsList").innerHTML=filtered.length
+  ?filtered.map(r=>`
+   <article class="review">
+    <div class="review-meta">
+     <span class="review-name">${safe(r.name)}</span>
+     <span class="stars">${"★".repeat(r.stars)}${"☆".repeat(5-r.stars)}</span>
+    </div>
+    <div class="subtle">${new Date(r.createdAt).toLocaleDateString()}</div>
+    <p>${safe(r.comment)}</p>
+    <span class="recommend">${r.recommend==="Yes"?"✓ Recommends Valére":"Would not recommend yet"}</span>
+   </article>`).join("")
+  :'<div class="empty">No reviews in this filter yet.</div>';
+}
+
+document.getElementById("categoryRow").addEventListener("click",e=>{
+ const b=e.target.closest("[data-category]");
+ if(!b)return;
+ document.querySelectorAll("[data-category]").forEach(x=>x.classList.toggle("active",x===b));
+ renderMenu(b.dataset.category);
+});
+
+document.getElementById("paymentMethod").addEventListener("change",updateCashChange);
+document.getElementById("cashReceived").addEventListener("input",updateCashChange);
+
+document.querySelectorAll("[data-star]").forEach(b=>
+ b.addEventListener("click",()=>{
+  selectedStars=Number(b.dataset.star);
+  paintStars();
+ })
+);
+
+document.querySelectorAll("[data-review-filter]").forEach(b=>
+ b.addEventListener("click",()=>{
+  reviewFilter=b.dataset.reviewFilter;
+  document.querySelectorAll("[data-review-filter]").forEach(x=>x.classList.toggle("active",x===b));
+  renderReviews();
+ })
+);
+
+document.getElementById("authModal").addEventListener("click",e=>{
+ if(e.target.id==="authModal")closeAuth();
+});
+
+document.getElementById("documentModal").addEventListener("click",e=>{
+ if(e.target.id==="documentModal")closeDocument();
+});
+
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){
+  closeAuth();
+  closeDocument();
+ }
+});
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+renderMenu();
+renderCart();
+updateAccount();
+renderOrders();
+renderReviews();
+paintStars();
+</script>
+</body>
+</html>
